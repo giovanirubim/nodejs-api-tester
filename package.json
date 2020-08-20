@@ -1,0 +1,16 @@
+{
+	"name": "Tests",
+	"version": "1.0.0",
+	"description": "",
+	"main": "app.js",
+	"scripts": {
+		"start": "node ."
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"comment-json": "^3.0.2",
+		"mysql": "^2.18.1"
+	}
+}

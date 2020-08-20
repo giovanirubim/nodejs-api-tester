@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Node.js API Tester</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="js/jquery-3.5.0.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+		<script type="text/javascript" src="js/sql-date.js"></script>
+		<script type="text/javascript" src="js/compare.js"></script>
+		<script type="text/javascript" src="js/test-queue.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="title">Host</div>
+			<div class="host">
+				<input type="text" name="host">
+			</div>
+			<div class="title">Authorization</div>
+			<div class="token">
+				<button>Reload</button>
+				<span id="token"></span>
+			</div>
+			<div class="title">
+				<span id="index">0</span>/<span id="length">0</span>
+				&gt; <span id="testId">*</span>
+				&gt; <span id="logType">*</span>
+			<div class="header">
+				<div class="type"></div>
+				<div class="path"></div>
+			</div>
+			<div class="data request-data">
+				<textarea name="sent" spellcheck="false"></textarea>
+			</div>
+			<div class="title">Response</div>
+			<div class="data response-data">
+				<textarea name="text" spellcheck="false" disabled></textarea>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+{
+	"auth": {
+		"user": {
+			// Usuário default
+			"grant_type": "",
+			"client_id": "",
+			"client_secret": ""
+		},
+		"users": {
+			// Usuários mapeados por nome (se não tiver default será selecionado o primeiro usuário
+			// neste mapa de usuários)
+			// Este mapeamento por nomes é opcional
+			"name1": {
+				"grant_type": "",
+				"client_id": "",
+				"client_secret": ""
+			},
+			"name2": {
+				"grant_type": "",
+				"client_id": "",
+				"client_secret": ""
+			}
+		}
+	},
+	"db": {
+		"host": "localhost",
+		"user": "root",
+		"port": 3306,
+		"password": ""
+	},
+	"script": "./scripts/sample.js",
+	"port": 8080,
+	"flags": {
+		"sql": true,
+		"local": true
+	}
+}

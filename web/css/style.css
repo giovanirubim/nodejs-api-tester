@@ -1,0 +1,85 @@
+body {
+	margin: 0px;
+	font-family: monospace;
+	background-color: #222;
+	color: #ccc;
+}
+.main {
+	max-width: 800px;
+	margin: 15px auto 0px auto;
+	padding: 15px 20px;
+}
+.title {
+	margin-bottom: 5px;
+}
+.header {
+	background-color: #444;
+	padding: 10px 12px;
+	height: 16px;
+}
+.header .type {
+	color: #fff;
+	float: right;
+	width: 50px;
+	text-align: center;
+}
+.header .type[type="POST"] {
+	background-color: #6aa84f;
+}
+.header .type[type="GET"] {
+	background-color: #3c78d8;
+}
+.header .type[type="PATCH"] {
+	background-color: #e69138;
+}
+.header .type[type="DELETE"] {
+	background-color: #c00;
+}
+.data, .host, .token {
+	margin-bottom: 15px;
+}
+.data {
+	min-height: 32px;
+	font-size: 0px;
+	padding: 10px;
+	background-color: #111;
+}
+.data textarea {
+	tab-size: 4;
+	width: calc(100%);
+	border: none;
+	padding: 0px;
+	background-color: transparent;
+	resize: none;
+	color: #fff;
+	height: 250px;
+}
+.host input[type="text"] {
+	--padding: 10px;
+	border: none;
+	padding-left: var(--padding);
+	padding-right: 0px;
+	width: calc(100% - var(--padding));
+	height: 26px;
+	background-color: #444;
+	color: #fff;
+	font-family: monospace;
+}
+.token {
+	background-color: #444;
+	height: 26px;
+}
+.token button {
+	height: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: none;
+	background-color: #373;
+	color: #fff;
+	cursor: pointer;
+}
+.token button[disabled] {
+	background-color: #585;
+	color: rgba(255, 255, 255, 0.5);
+	cursor: default;
+}
