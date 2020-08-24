@@ -63,7 +63,7 @@ const runQueries = async (req, res, queries) => {
 	for (let i=0; i<queries.length; ++i) {
 		const query = queries[i];
 		const { err, result } = await runQuery(query);
-		const val = err || result;
+		val = err || result;
 		if (err) {
 			errored = true;
 		}
@@ -79,6 +79,8 @@ let lastTime = new Date();
 const app = http.createServer(async (req, res) => {
 
 	let { pathname: path, query } = parseURL(req.url, true);
+	const body = await getStringBody(req)
+	// console.log({ path, query, body });
 
 	if (req.method === 'GET') {
 		if (path === '/config') {
@@ -93,7 +95,6 @@ const app = http.createServer(async (req, res) => {
 		} else {
 			filePath = concat(webRoot, path);
 		}
-		console.log(path + ' ' + filePath);
 		if (!fs.existsSync(filePath)) {
 			res.writeHead(404);
 			res.end();
@@ -115,21 +116,18 @@ const app = http.createServer(async (req, res) => {
 	lastTime = now;
 
 	if (req.method === 'POST' && path === '/test') {
-		let body = await getStringBody(req);
 		res.writeHead(400, {'Content-Type': 'application/json'});
 		res.end(JSON.stringify({ success: true, body, query }));
 		return;
 	}
 
 	if (req.method === 'POST' && path === '/sql') {
-		let query = await getStringBody(req);
-		// query = query.trim().replace(/\s*\n+\s*/g, ' ').replace(/ ;$/, ';').replace(/;$/, '');
-		runQueries(req, res, splitQuery(query));
+		runQueries(req, res, splitQuery(body));
 		return;
 	}
 
 	if (req.method === 'POST' && path === '/load-script') {
-		const path = await getStringBody(req);
+		const path = body;
 		if (!fs.existsSync(path)) {
 			res.writeHead(404);
 			res.end();
@@ -149,7 +147,7 @@ const app = http.createServer(async (req, res) => {
 
 	if (req.method === 'POST' && path === '/request') {
 
-		let json = await getStringBody(req);
+		let json = body;
 		let id = ++ lastId;
 		const config = JSON.parse(json);
 		console.log(`Request (${ id })`, config);

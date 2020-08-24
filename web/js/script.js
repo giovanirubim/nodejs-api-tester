@@ -158,16 +158,31 @@ window.Data = {
 	}
 };
 
+const addHeader = (a, b) => {
+	if (a instanceof Object) {
+		for (let attr in a) {
+			addHeader(attr, a[attr]);
+		}
+		return;
+	}
+	headers[a] = b;
+};
+
 const runStep = async (test, step) => {
 	if (!current_test) throw 'No current test';
 	const {type} = step;
-	if (type === 'auth_user') {
+	if (type === 'head') {
+		const { args } = step;
+		addHeader(...args);
+		return true;
+	} else if (type === 'auth_user') {
 		const { name } = step;
 		const user = auth_user_map[name];
 		if (!user) {
 			throw `No auth user named ${ name }`;
 		}
 		auth_user = user;
+		return true;
 	} else if (type === 'check') {
 		const {fn} = step;
 		if (false === await fn()) {
@@ -271,7 +286,17 @@ const runStep = async (test, step) => {
 	return true;
 };
 
+const newChecker = (args) => {
+	args = args.replace(/(\w+)/gi, 'config.flags.$1');
+	let res;
+	eval(`res = ${args};`);
+	return res;
+};
+
 const checkFlagsArg = (args) => {
+	if (args.match(/[&\|!\(\)]|==|!=/)) {
+		return newChecker(args);
+	}
 	if (typeof args === 'string') {
 		if (args.includes(';')) {
 			args = args.trim().split(/\s*;\s*/);
@@ -315,6 +340,10 @@ class Test {
 	}
 	setHost(host) {
 		this.steps.push({ type: 'host', host });
+		return this;
+	}
+	head(...args) {
+		this.steps.push({ type: 'head', args });
 		return this;
 	}
 	authUser(name) {
