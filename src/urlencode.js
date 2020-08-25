@@ -7,10 +7,7 @@ const open = encodeURIComponent('[');
 const close = encodeURIComponent(']');
 const append = open + close;
 
-// ------------------------------ <==============================> ------------------------------ //
-// Public
-
-module.exports = root => {
+const urlencode = (root) => {
 	let path = '';
 	let res = '';
 	const add = (value) => {
@@ -41,6 +38,11 @@ module.exports = root => {
 	}
 	return res.substr(0, res.length - 1);
 };
+
+// ------------------------------ <==============================> ------------------------------ //
+// Public
+
+module.exports = urlencode;
 
 // Fim de Arquivo
 // ------------------------------ <==============================> ------------------------------ //

@@ -19,6 +19,16 @@ const concat = (a, b) => {
 	return a.replace(/\/$/,'')+'/'+b.replace(/^\//,'');
 };
 
+const setHeader = (a, b) => {
+	if (a instanceof Object) {
+		for (let attr in a) {
+			setHeader(attr, a[attr]);
+		}
+		return;
+	}
+	headers[a] = b;
+};
+
 let config = null;
 const loadConfig = () => new Promise((done, fail) => {
 	$.get({
@@ -256,6 +266,8 @@ const runStep = async (test, step) => {
 	} else if (type === 'host') {
 		localStorage.setItem('host', host = step.host);
 		$('[name="host"]').val(step.host);
+	} else if (type === 'head') {
+		setHeader(...step.args);
 	} else if (type === 'sql') {
 		let { query } = step;
 		if (typeof query === 'function') {
@@ -271,7 +283,17 @@ const runStep = async (test, step) => {
 	return true;
 };
 
+const newChecker = (args) => {
+	args = args.replace(/(\w+)/gi, 'config.flags.$1');
+	let res;
+	eval(`res = ${args};`);
+	return res;
+};
+
 const checkFlagsArg = (args) => {
+	if (args.match(/[&\|!\(\)]|==|!=/)) {
+		return newChecker(args);
+	}
 	if (typeof args === 'string') {
 		if (args.includes(';')) {
 			args = args.trim().split(/\s*;\s*/);
@@ -315,6 +337,10 @@ class Test {
 	}
 	setHost(host) {
 		this.steps.push({ type: 'host', host });
+		return this;
+	}
+	head(...args) {
+		this.steps.push({ type: 'head', args });
 		return this;
 	}
 	authUser(name) {
@@ -863,7 +889,7 @@ window.loadScript = (path) => {
 		success: (res) => {
 			eval(res);
 		}
-	})
+	});
 };
 
 }

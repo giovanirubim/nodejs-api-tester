@@ -1,16 +1,19 @@
 {
-	"name": "Tests",
-	"version": "1.0.0",
-	"description": "",
+	"name": "api-tester",
+	"version": "2.0.0",
+	"description": "Application for API tests",
 	"main": "app.js",
 	"scripts": {
 		"start": "node ."
 	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/giovanirubim/nodejs-api-tester.git"
+	},
 	"keywords": [],
-	"author": "",
+	"author": "Giovani Rubim Francisco",
 	"license": "ISC",
 	"dependencies": {
-		"comment-json": "^3.0.2",
 		"mysql": "^2.18.1"
 	}
 }
