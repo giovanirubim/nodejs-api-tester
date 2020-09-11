@@ -66,6 +66,7 @@ const runQueries = async (req, res, queries) => {
 		val = err || result;
 		if (err) {
 			errored = true;
+			break;
 		}
 		console.log({ query, val });
 	};
