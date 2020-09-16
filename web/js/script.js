@@ -480,7 +480,7 @@ window.addTest = (name, flagsArg) => {
 		delete idMap[id];
 		idMap[temp.id += ' (1)'] = temp;
 		id += ' (2)';
-	} else if (test[id + ' (1)']) {
+	} else if (idMap[id + ' (1)']) {
 		id += ` (${ array.length + 1})`;
 	}
 	idMap[id] = test;
